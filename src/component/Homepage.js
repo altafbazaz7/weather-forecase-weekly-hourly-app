@@ -126,28 +126,17 @@ const SevenDayForecast = ({ sevenDayForecast, getHourly, setGetHourly }) => {
     }
 
     return (
-        <>
-
-            {
-                Array.isArray(sevenDayForecast.forecast.forecastday) && <div className="w-[80%] mt-8 mx-[10px] overflow-x-scroll overflow__scroll__bar">
-                    <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-semibold mb-4">7 Day Forecast</h1>
-                    <div className="flex  gap-4">
-                        {sevenDayForecast.forecast.forecastday.map((day, index) => (
-                            <>
-
-
-                                <WeatherDetail key={index}
-                                    getHourly={getHourly}
-                                    setGetHourly={setGetHourly}
-                                    currentDayWeather={{ location: { name: day.date }, current: day.day, hour: day.hour }} forecast={true} />
-
-                            </>
-                        ))}
-                    </div>
-                </div>
-            }
-        </>
-
+        <div className="w-[80%] mt-8 mx-[10px] overflow-x-scroll overflow__scroll__bar">
+            <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-semibold mb-4">7 Day Forecast</h1>
+            <div className="flex  gap-4">
+                {sevenDayForecast.forecast.forecastday.map((day, index) => (
+                    day && <WeatherDetail key={index}
+                        getHourly={getHourly}
+                        setGetHourly={setGetHourly}
+                        currentDayWeather={{ location: { name: day.date }, current: day.day, hour: day.hour }} forecast={true} />
+                ))}
+            </div>
+        </div>
     );
 };
 
@@ -158,34 +147,20 @@ const HourlyForecast = ({ hour, date }) => {
 
     return (
         <>
-
             {
                 Array.isArray(hour) && (
-                    <>
-                        <div className="w-[80%] mt-8 mx-[10px] overflow-x-scroll overflow__scroll__bar">
-                            <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-semibold mb-4"  >24hr details for : {date}</h1>
-                            <div className="flex  gap-4">
-                                {Array.isArray(hour) && hour.map((hour, index) => (
-                                    <>
-                                        {
-                                            console.log(hour.condition, "hourrr")
-                                        }
-
-
-                                        <WeatherDetail key={index}
-                                            currentDayWeather={{ location: { name: hour.time.split(" ")[1] }, current: hour, hour: "day.hour" }}
-                                            hourly={true} />
-
-                                    </>
-                                ))}
-                            </div>
+                    <div className="w-[80%] mt-8 mx-[10px] overflow-x-scroll overflow__scroll__bar">
+                        <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-semibold mb-4">24hr details for : {date}</h1>
+                        <div className="flex  gap-4">
+                            {hour.map((hour, index) => (
+                                hour && <WeatherDetail key={index}
+                                    currentDayWeather={{ location: { name: hour.time.split(" ")[1] }, current: hour, hour: "day.hour" }}
+                                    hourly={true} />
+                            ))}
                         </div>
-                    </>
+                    </div>
                 )
             }
         </>
-
     );
 };
-
-
