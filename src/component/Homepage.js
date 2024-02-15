@@ -70,7 +70,8 @@ const WeatherDetail = ({ currentDayWeather, forecast, getHourly, setGetHourly, h
     }
 
     const { location, current, hour } = currentDayWeather;
-    const { name, region, country } = location;
+    
+    const { name, region, country } = location || {};
 
     return (
         <div className="text-center bg-gray-800 rounded-lg p-6 shadow-md mt-8 min-w-[350px] relative">
